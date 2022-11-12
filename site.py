@@ -21,17 +21,80 @@ with st.sidebar:
         """
     )
 
-    df_petr = web.get_data_yahoo("PETR3" + '.SA', "10/10/2022")
-    df_petr.index = df_petr.index.strftime("%d/%m/%Y")
-    df = st.dataframe(df_petr.head())
+    dict_petr = {'High': {'11/11/2022': 31.16,
+  '10/11/2022': 30.24,
+  '09/11/2022': 31.18,
+  '08/11/2022': 30.9,
+  '07/11/2022': 31.9},
+ 'Low': {'11/11/2022': 29.28,
+  '10/11/2022': 28.92,
+  '09/11/2022': 30.0,
+  '08/11/2022': 29.99,
+  '07/11/2022': 30.45},
+ 'Open': {'11/11/2022': 29.61,
+  '10/11/2022': 29.31,
+  '09/11/2022': 30.52,
+  '08/11/2022': 30.38,
+  '07/11/2022': 31.39},
+ 'Close': {'11/11/2022': 30.7,
+  '10/11/2022': 29.69,
+  '09/11/2022': 30.06,
+  '08/11/2022': 30.63,
+  '07/11/2022': 30.63},
+ 'Volume': {'11/11/2022': 34866200,
+  '10/11/2022': 39818600,
+  '09/11/2022': 15928500,
+  '08/11/2022': 19140100,
+  '07/11/2022': 27442700},
+ 'Adj Close': {'11/11/2022': 30.7,
+  '10/11/2022': 29.69,
+  '09/11/2022': 30.06,
+  '08/11/2022': 30.63,
+  '07/11/2022': 30.63}}
+ 
+
+    #df_petr = web.get_data_yahoo("PETR3" + '.SA', "10/10/2022")
+    #df_petr.index = df_petr.index.strftime("%d/%m/%Y")
+    df = st.dataframe(pd.DataFrame(dict_petr).head())
 
     texto_sidebar2 = st.markdown("""
     IBOVESPA    
     """)
 
-    df_ibov_ex = web.get_data_yahoo("^BVSP", "10/10/2022")
-    df_ibov_ex.index = df_ibov_ex.index.strftime("%d/%m/%Y")
-    df = st.dataframe(df_ibov_ex.head())
+    dict_ibov = {'High': {'11/11/2022': 113009.62,
+  '10/11/2022': 113579.0,
+  '09/11/2022': 116183.0,
+  '08/11/2022': 117072.0,
+  '07/11/2022': 118240.0},
+ 'Low': {'11/11/2022': 109408.1,
+  '10/11/2022': 108516.0,
+  '09/11/2022': 113110.0,
+  '08/11/2022': 114688.0,
+  '07/11/2022': 115266.0},
+ 'Open': {'11/11/2022': 109775.46,
+  '10/11/2022': 113579.0,
+  '09/11/2022': 116153.0,
+  '08/11/2022': 115340.0,
+  '07/11/2022': 118148.0},
+ 'Close': {'11/11/2022': 112253.49,
+  '10/11/2022': 109775.0,
+  '09/11/2022': 113580.0,
+  '08/11/2022': 116160.0,
+  '07/11/2022': 115342.0},
+ 'Volume': {'11/11/2022': 0,
+  '10/11/2022': 26029300,
+  '09/11/2022': 20531600,
+  '08/11/2022': 14239800,
+  '07/11/2022': 15221900},
+ 'Adj Close': {'11/11/2022': 112253.49,
+  '10/11/2022': 109775.0,
+  '09/11/2022': 113580.0,
+  '08/11/2022': 116160.0,
+  '07/11/2022': 115342.0}}
+
+    #df_ibov_ex = web.get_data_yahoo("^BVSP", "10/10/2022")
+    #df_ibov_ex.index = df_ibov_ex.index.strftime("%d/%m/%Y")
+    df = st.dataframe(pd.DataFrame(dict_ibov).head())
 
     texto_sidebar3 = st.markdown("""
     Com esses dados, é calculado o retorno discreto diário de cada tabela utilizando o "Adj Close" e, com isso,
@@ -96,7 +159,7 @@ if st.button('Calcular Beta'):
             # IMPORTANT: Cache the conversion to prevent computation on every rerun
             return df.to_csv().encode('utf-8')
 
-        csv = convert_df(df_retornos)
+        csv = convert_df(df_retornos.round(4).iloc[::-1])
 
         st.download_button(
         label="Baixar planilha",
