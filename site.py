@@ -6,14 +6,48 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 from scipy import stats
 
+st.set_page_config(
+    page_title="Beta ativo",
+)
+
 st.title("Beta de um ativo")
+
+with st.sidebar:
+    texto_sidebar = st.markdown(
+        """Este site possui o objetivo de calcular o beta de um ativo a partir de variáveis como a data inicial, final e o
+        nome do ativo com dados obtidos do Yahoo Finance.
+        \nApós fornecer essas informações, as tabelas são extraídas como no exemplo:
+        \nPETR3
+        """
+    )
+
+    df_petr = web.get_data_yahoo("PETR3" + '.SA', "10/10/2022")
+    df_petr.index = df_petr.index.strftime("%d/%m/%Y")
+    df = st.dataframe(df_petr.head())
+
+    texto_sidebar2 = st.markdown("""
+    IBOVESPA    
+    """)
+
+    df_ibov_ex = web.get_data_yahoo("^BVSP", "10/10/2022")
+    df_ibov_ex.index = df_ibov_ex.index.strftime("%d/%m/%Y")
+    df = st.dataframe(df_ibov_ex.head())
+
+    texto_sidebar3 = st.markdown("""
+    Com esses dados, é calculado o retorno discreto diário de cada tabela utilizando o "Adj Close" e, com isso,
+     é feita uma regressão linear para obter o beta e um gráfico de dispersão com a reta destacada.
+    \n
+    Depois de usar o botão "Calcular Beta", aparecerá uma opção "Baixar planilha" no final da página, sendo um
+    csv com a data e retornos diários do ativo escolhido e do Ibovespa.
+    \n \n \n
+    """)
 
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-ativo = st.text_input("Escolha o ativo (Ex: ITUB3, HGLG11, IVVB11): ")
-data_inicial = st.text_input("Data inicial no formato DD/MM/AAAA: ")
-data_final = st.text_input("Data final no formato DD/MM/AAAA: ")
+ativo = st.text_input("Escolha o ativo (Ex: ITUB3, PETR3, CPLE11): ").strip().upper()
+data_inicial = st.text_input("Data inicial no formato DD/MM/AAAA: ").strip()
+data_final = st.text_input("Data final no formato DD/MM/AAAA: ").strip()
 
 if st.button('Calcular Beta'):
     try:

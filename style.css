@@ -5,3 +5,16 @@
 .css-1fv8s86 p {
   font-size: 22px !important;
 }
+
+[data-testid="stMarkdownContainer"] p {
+  font-size: 16px !important;
+  text-align: justify;
+}
+
+div.css-hxt7ib.e1fqkh3o4 {
+  padding-top: 4rem !important;
+}
+
+div.element-container.css-1p1nwyz.e1tzin5v3:last-child {
+  margin-bottom: 50px;
+}
