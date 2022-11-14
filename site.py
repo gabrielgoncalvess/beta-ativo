@@ -55,7 +55,7 @@ with st.sidebar:
 
     #df_petr = web.get_data_yahoo("PETR3" + '.SA', "10/10/2022")
     #df_petr.index = df_petr.index.strftime("%d/%m/%Y")
-    df = st.dataframe(pd.DataFrame(dict_petr).head().style.format("{:,.2f}", decimal=',', thousands='.'))
+    df = st.dataframe(pd.DataFrame(dict_petr).head().style.format({"High":"{:,.2f}","Low":"{:,.2f}","Open":"{:,.2f}","Close":"{:,.2f}","Volume":"{:,}","Adj Close":"{:,.2f}"}, decimal=',', thousands='.'))
 
     texto_sidebar2 = st.markdown("""
     IBOVESPA    
@@ -94,7 +94,7 @@ with st.sidebar:
 
     #df_ibov_ex = web.get_data_yahoo("^BVSP", "10/10/2022")
     #df_ibov_ex.index = df_ibov_ex.index.strftime("%d/%m/%Y")
-    df = st.dataframe(pd.DataFrame(dict_ibov).head().style.format("{:,.2f}", decimal=',', thousands='.'))
+    df = st.dataframe(pd.DataFrame(dict_ibov).head().style.format({"High":"{:,.2f}","Low":"{:,.2f}","Open":"{:,.2f}","Close":"{:,.2f}","Volume":"{:,}","Adj Close":"{:,.2f}"}, decimal=',', thousands='.'))
 
     texto_sidebar3 = st.markdown("""
     Com esses dados, é calculado o retorno discreto diário de cada tabela utilizando o "Adj Close" e, com isso,
