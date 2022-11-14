@@ -81,7 +81,7 @@ with st.sidebar:
   '09/11/2022': 113580.0,
   '08/11/2022': 116160.0,
   '07/11/2022': 115342.0},
- 'Volume': {'11/11/2022': 0,
+ 'Volume': {'11/11/2022': 25038700,
   '10/11/2022': 26029300,
   '09/11/2022': 20531600,
   '08/11/2022': 14239800,
@@ -159,7 +159,7 @@ if st.button('Calcular Beta'):
             # IMPORTANT: Cache the conversion to prevent computation on every rerun
             return df.to_csv().encode('utf-8')
 
-        csv = convert_df(df_retornos.round(4).iloc[::-1])
+        csv = convert_df(df_retornos.round(6).iloc[::-1])
 
         st.download_button(
         label="Baixar planilha",
