@@ -5,6 +5,9 @@ from pandas_datareader import data as web
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 from scipy import stats
+import yfinance as yfin
+
+yfin.pdr_override()
 
 st.set_page_config(
     page_title="Beta ativo",
