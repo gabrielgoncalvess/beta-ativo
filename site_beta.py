@@ -142,16 +142,18 @@ data_final = st.text_input("Data final no formato DD/MM/AAAA: ").strip()
 
 if st.button('Calcular Beta'):
     try:
-        data_inicial = f"{data_inicial[3:5]}/{data_inicial[:2]}/{data_inicial[6:]}"
-        data_final = f"{data_final[3:5]}/{data_final[:2]}/{data_final[6:]}"
+        # data_inicial = f"{data_inicial[3:5]}/{data_inicial[:2]}/{data_inicial[6:]}"
+        # data_final = f"{data_final[3:5]}/{data_final[:2]}/{data_final[6:]}"
+        data_inicial = f"{data_inicial[6:]}-{data_inicial[3:5]}-{data_inicial[:2]}"
+        data_final = f"{data_final[6:]}-{data_final[3:5]}-{data_final[:2]}"
 
         label_ativo = ativo
 
         if tipo_ativo == "Nacional":
             ativo+=".SA"
 
-        df_ativo = web.get_data_yahoo(ativo, data_inicial, data_final)['Adj Close']
-        df_ibov = web.get_data_yahoo(dict_indexador[indexador], data_inicial, data_final)['Adj Close']
+        df_ativo = web.get_data_yahoo(ativo, start=data_inicial, end=data_final)['Adj Close']
+        df_ibov = web.get_data_yahoo(dict_indexador[indexador], start=data_inicial, end=data_final)['Adj Close']
 
         if tipo_retorno == "Logaritmo":
             retorno_ativo = np.log(df_ativo/df_ativo.shift(1)) 
