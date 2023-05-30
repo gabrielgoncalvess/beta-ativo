@@ -206,5 +206,6 @@ if st.button('Calcular Beta'):
         file_name='retornos.csv',
         mime='text/csv',
         )
-    except:
+    except Exception as e:
         st.write("Erro na execução, tente novamente")
+        st.error(f"An error occurred: {e}")
