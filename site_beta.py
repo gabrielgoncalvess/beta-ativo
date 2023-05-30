@@ -167,6 +167,10 @@ if st.button('Calcular Beta'):
         df_retornos[indexador] = retorno_ibovespa
 
         df_retornos = df_retornos.dropna()
+        
+        st.write(df_retornos)
+        st.write(df_retornos[indexador])
+        st.write(df_retornos[label_ativo])
 
         # Criar arrays para as variáveis x e y no modelo de regressão
         x = np.array(df_retornos[indexador]).reshape((-1,1))
