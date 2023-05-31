@@ -168,7 +168,10 @@ if st.button('Calcular Beta'):
 
         df_retornos = df_retornos.dropna()
         
-        st.write(df_ativo)
+        st.write(ativo)
+        st.write(data_inicial)
+        st.write(data_final)
+        st.write(web.get_data_yahoo(ativo, start=data_inicial, end=data_final)['Adj Close'])
 
         # Criar arrays para as variáveis x e y no modelo de regressão
         x = np.array(df_retornos[indexador]).reshape((-1,1))
