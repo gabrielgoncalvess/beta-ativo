@@ -152,8 +152,8 @@ if st.button('Calcular Beta'):
         if tipo_ativo == "Nacional":
             ativo+=".SA"
 
-        df_ativo = web.get_data_yahoo(ativo, start=data_inicial, end=data_final)['Adj Close']
-        df_ibov = web.get_data_yahoo(dict_indexador[indexador], start=data_inicial, end=data_final)['Adj Close']
+        df_ativo = web.DataReader(ativo, start=data_inicial, end=data_final)['Adj Close']
+        df_ibov = web.DataReader(dict_indexador[indexador], start=data_inicial, end=data_final)['Adj Close']
 
         if tipo_retorno == "Logaritmo":
             retorno_ativo = np.log(df_ativo/df_ativo.shift(1)) 
