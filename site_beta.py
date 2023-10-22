@@ -6,8 +6,9 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 from scipy import stats
 import yfinance as yfin
+import datetime
 
-yfin.pdr_override()
+#yfin.pdr_override()
 
 st.set_page_config(
     page_title="Beta ativo",
@@ -144,16 +145,23 @@ if st.button('Calcular Beta'):
     try:
         # data_inicial = f"{data_inicial[3:5]}/{data_inicial[:2]}/{data_inicial[6:]}"
         # data_final = f"{data_final[3:5]}/{data_final[:2]}/{data_final[6:]}"
-        data_inicial = f"{data_inicial[6:]}-{data_inicial[3:5]}-{data_inicial[:2]}"
-        data_final = f"{data_final[6:]}-{data_final[3:5]}-{data_final[:2]}"
+        
+        # data_inicial = f"{data_inicial[6:]}-{data_inicial[3:5]}-{data_inicial[:2]}"
+        # data_final = f"{data_final[6:]}-{data_final[3:5]}-{data_final[:2]}"
+
+        data_inicial = datetime.datetime(int(f'{data_inicial[6:]}'), int(f'{data_inicial[3:5]}'), int(f'{data_inicial[:2]}'))
+        data_final = datetime.datetime(int(f'{data_final[6:]}'), int(f'{data_final[3:5]}'), int(f'{data_final[:2]}'))
 
         label_ativo = ativo
 
         if tipo_ativo == "Nacional":
             ativo+=".SA"
 
-        df_ativo = web.DataReader(ativo, start=data_inicial, end=data_final)['Adj Close']
-        df_ibov = web.DataReader(dict_indexador[indexador], start=data_inicial, end=data_final)['Adj Close']
+        # df_ativo = web.DataReader(ativo, start=data_inicial, end=data_final)['Adj Close']
+        # df_ibov = web.DataReader(dict_indexador[indexador], start=data_inicial, end=data_final)['Adj Close']
+
+        df_ativo = yfin.Ticker(ativo).history(start=data_inicial,end=data_final)['Close']
+        df_ibov = yfin.Ticker(dict_indexador[indexador]).history(start=data_inicial,end=data_final)['Close']
 
         if tipo_retorno == "Logaritmo":
             retorno_ativo = np.log(df_ativo/df_ativo.shift(1)) 
@@ -167,11 +175,6 @@ if st.button('Calcular Beta'):
         df_retornos[indexador] = retorno_ibovespa
 
         df_retornos = df_retornos.dropna()
-        
-        st.write(ativo)
-        st.write(data_inicial)
-        st.write(data_final)
-        st.write(web.get_data_yahoo(ativo, start=data_inicial, end=data_final)['Adj Close'])
 
         # Criar arrays para as variáveis x e y no modelo de regressão
         x = np.array(df_retornos[indexador]).reshape((-1,1))
