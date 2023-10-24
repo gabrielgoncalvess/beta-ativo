@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import yfinance as yfin
 import datetime
-import time
 
 #yfin.pdr_override()
 
@@ -161,9 +160,7 @@ if st.button('Calcular Beta'):
         # df_ativo = web.DataReader(ativo, start=data_inicial, end=data_final)['Adj Close']
         # df_ibov = web.DataReader(dict_indexador[indexador], start=data_inicial, end=data_final)['Adj Close']
 
-        obj_ativo = yfin.Ticker(ativo)
-
-        df_ativo = obj_ativo.history(start=data_inicial,end=data_final)['Close']
+        df_ativo = yfin.Ticker(ativo).history(start=data_inicial,end=data_final)['Close']
         df_ibov = yfin.Ticker(dict_indexador[indexador]).history(start=data_inicial,end=data_final)['Close']
 
         if tipo_retorno == "Logaritmo":
@@ -187,7 +184,7 @@ if st.button('Calcular Beta'):
         from sklearn.linear_model import LinearRegression
         model = LinearRegression().fit(x, y)
 
-        st.write(f'{obj_ativo.info["longName"]}')
+        #st.write(f'{yfin.Ticker(ativo).info["longName"]}')
         st.write(f'Beta: {model.coef_[0]:.4f}')
 
         fig, ax = plt.subplots()
