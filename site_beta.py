@@ -184,7 +184,9 @@ if st.button('Calcular Beta'):
         from sklearn.linear_model import LinearRegression
         model = LinearRegression().fit(x, y)
 
-        st.write(f'{yfin.Ticker("AAPL").info}')
+        variavel = yfin.Ticker("AAPL").info
+
+        st.write(variavel)
         st.write(f'Beta: {model.coef_[0]:.4f}')
 
         fig, ax = plt.subplots()
