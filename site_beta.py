@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import yfinance as yfin
 import datetime
+import time
 
 #yfin.pdr_override()
 
@@ -183,6 +184,8 @@ if st.button('Calcular Beta'):
         # Usar modelo de regressão
         from sklearn.linear_model import LinearRegression
         model = LinearRegression().fit(x, y)
+
+        time.sleep(5)
 
         st.write(f'{yfin.Ticker(ativo).info["longName"]}')
         st.write(f'Beta: {model.coef_[0]:.4f}')
