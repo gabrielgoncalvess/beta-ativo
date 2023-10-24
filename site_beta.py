@@ -163,6 +163,9 @@ if st.button('Calcular Beta'):
         df_ativo = yfin.Ticker(ativo).history(start=data_inicial,end=data_final)['Close']
         df_ibov = yfin.Ticker(dict_indexador[indexador]).history(start=data_inicial,end=data_final)['Close']
 
+        df_ativo.index = df_ativo.index.tz_localize(None)
+        df_ibov.index = df_ibov.index.tz_localize(None)
+
         if tipo_retorno == "Logaritmo":
             retorno_ativo = np.log(df_ativo/df_ativo.shift(1)) 
             retorno_ibovespa = np.log(df_ibov/df_ibov.shift(1)) 
