@@ -220,4 +220,4 @@ if st.button('Calcular Beta'):
         )
     except Exception as e:
         st.write("Erro na execução, tente novamente")
-        st.error(f"An error occurred: {e}")
+        # st.error(f"An error occurred: {e}")
