@@ -160,7 +160,9 @@ if st.button('Calcular Beta'):
         # df_ativo = web.DataReader(ativo, start=data_inicial, end=data_final)['Adj Close']
         # df_ibov = web.DataReader(dict_indexador[indexador], start=data_inicial, end=data_final)['Adj Close']
 
-        df_ativo = yfin.Ticker(ativo).history(start=data_inicial,end=data_final)['Close']
+        df_ativo_base = yfin.Ticker(ativo)
+        df_ativo_nome = yfin.Ticker(ativo).info["longName"]
+        df_ativo = df_ativo_base.history(start=data_inicial,end=data_final)['Close']
         df_ibov = yfin.Ticker(dict_indexador[indexador]).history(start=data_inicial,end=data_final)['Close']
 
         df_ativo.index = df_ativo.index.tz_localize(None)
@@ -187,7 +189,7 @@ if st.button('Calcular Beta'):
         from sklearn.linear_model import LinearRegression
         model = LinearRegression().fit(x, y)
 
-        st.write(f'{yfin.Ticker(ativo).info["longName"]}')
+        st.write(f'{df_ativo_nome}')
         st.write(f'Beta: {model.coef_[0]:.4f}')
 
         fig, ax = plt.subplots()
