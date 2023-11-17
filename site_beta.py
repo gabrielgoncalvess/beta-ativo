@@ -220,7 +220,7 @@ if st.button('Calcular Beta'):
         st.download_button(
         label="Baixar planilha",
         data=csv,
-        file_name='retornos.csv',
+        file_name=f'retornos {label_ativo} e {indexador}.csv',
         mime='text/csv',
         )
     except Exception as e:
