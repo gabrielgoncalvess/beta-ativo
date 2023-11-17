@@ -205,6 +205,11 @@ if st.button('Calcular Beta'):
 
         st.pyplot(fig)
 
+        df_retornos.columns.values[0] = f"{label_ativo} Retornos"
+        df_retornos.columns.values[0] = f"{indexador} Retornos"
+        df_retornos[f"{label_ativo} Preço"] = df_ativo
+        df_retornos[f"{indexador} Pontuação"] = df_ibov
+
         @st.cache
         def convert_df(df):
             # IMPORTANT: Cache the conversion to prevent computation on every rerun
