@@ -208,7 +208,7 @@ if st.button('Calcular Beta'):
         df_retornos.columns.values[0] = f"{label_ativo} Return"
         df_retornos.columns.values[1] = f"{indexador} Return"
         df_retornos[f"{label_ativo} Price"] = df_ativo
-        df_retornos[f"{indexador} Pontuação"] = df_ibov
+        df_retornos[f"{indexador} Score"] = df_ibov
 
         @st.cache
         def convert_df(df):
