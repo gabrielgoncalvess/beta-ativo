@@ -206,7 +206,7 @@ if st.button('Calcular Beta'):
         st.pyplot(fig)
 
         df_retornos.columns.values[0] = f"{label_ativo} Retornos"
-        df_retornos.columns.values[0] = f"{indexador} Retornos"
+        df_retornos.columns.values[1] = f"{indexador} Retornos"
         df_retornos[f"{label_ativo} Preço"] = df_ativo
         df_retornos[f"{indexador} Pontuação"] = df_ibov
 
